@@ -30,7 +30,6 @@ class TCustomContainer
       {
         Next = Ptr->PtrOnNext;
         Allocator.destroy(Ptr);
-        //Allocator.deallocate(Ptr, 1);
       }
       Allocator.deallocate(this->Head, Size);
     }

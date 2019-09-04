@@ -28,12 +28,6 @@ int main(int, char**)
     CustCont.push_back(i + 1);
   }
 
-  /*for (auto it = CustCont.begin(); it != CustCont.end(); ++it)
-  {
-    std::cout << *it << ' ';
-  }
-  std::cout << std::endl;*/
-
   // TCustomContainer with TCustomAllocator
   TCustomContainer<int> CustContMyAlloc;
   for (int i = 0; i < 10; ++i)
