@@ -27,6 +27,17 @@ target_include_directories(math_func_lib
     PRIVATE "${CMAKE_BINARY_DIR}"
 )
 
+option(PACKAGE_TESTS "Build the tests" ON)
+if(PACKAGE_TESTS)
+    enable_testing()
+    add_subdirectory(googletest)
+endif()
+
+if(CMAKE_VERSION VERSION_LESS 2.8.11)
+    include_directories("${gtest_SOURCE_DIR}/include"
+                        "${gmock_SOURCE_DIR}/include")
+endif()
+
 target_link_libraries(allocator PRIVATE
     allocator_lib container_lib math_func_lib 
 )
@@ -78,16 +89,5 @@ set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
 
 set(CPACK_PACKAGE_CONTACT example@example.com)
-
-option(PACKAGE_TESTS "Build the tests" ON)
-if(PACKAGE_TESTS)
-    enable_testing()
-    add_subdirectory(googletest)
-endif()
-
-if(CMAKE_VERSION VERSION_LESS 2.8.11)
-    include_directories("${gtest_SOURCE_DIR}/include"
-                        "${gmock_SOURCE_DIR}/include")
-endif()
 
 add_test(test_allocator test_allocator)
