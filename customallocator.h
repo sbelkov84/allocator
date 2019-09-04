@@ -94,16 +94,17 @@ struct TCustomAllocator
       return TmpPointer;
     }
 
-    void deallocate(T* p, std::size_t n)
+    void deallocate(T* p, std::size_t)
     {
       TPtrListItem<T>*& TmpItem = GetChunkByPtr(p);
       if (TmpItem != nullptr)
       {
-        TmpItem->Dealloc(p, n);
         if (TmpItem->ElementsQty == 0)
         {
           if (TmpItem->PrevPtr != nullptr)
             TmpItem->PrevPtr->NextPtr = nullptr;
+          
+          TmpItem->Dealloc(TmpItem->CurChunk, TmpItem->AllocatedQty);
           delete TmpItem;
         }
       }
